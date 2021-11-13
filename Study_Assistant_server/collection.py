@@ -44,7 +44,7 @@ def sync(request):
             data['collection_list'] = collectionList
             return response(meta, data, 200)
         else:
-            meta['msg'] = "login timeout"
+            meta['msg'] = "user doesn't exist"
             return response(meta, data, 500)
     except Exception as e:
         meta['msg'] = e
@@ -78,7 +78,7 @@ def addEntry(request):
             data['status'] = "collection_ok"
             return response(meta, data, 200)
         else:
-            meta['msg'] = "login timeout"
+            meta['msg'] = "user doesn't exist"
             return response(meta, data, 500)
     except Exception as e:
         meta['msg'] = e
@@ -110,7 +110,7 @@ def delEntry(request):
             data['status'] = "success"
             return response(meta, data, 200)
         else:
-            meta['msg'] = "login timeout"
+            meta['msg'] = "user doesn't exist"
             return response(meta, data, 500)
     except Exception as e:
         meta['msg'] = e
@@ -146,7 +146,7 @@ def islatest(request):
             meta['msg'] = "success"
             return response(meta, data, 200)
         else:
-            meta['msg'] = "login timeout"
+            meta['msg'] = "user doesn't exist"
             return response(meta, data, 500)
     except Exception as e:
         meta['msg'] = e
@@ -194,7 +194,7 @@ def submit(request):
             meta['msg'] = "success"
             return response(meta, data, 200)
         else:
-            meta['msg'] = "login timeout"
+            meta['msg'] = "user doesn't exist"
             return response(meta, data, 500)
     except Exception as e:
         meta['msg'] = e

@@ -143,7 +143,7 @@ def addEntry(request):
             data['status'] = "success"
             return response(meta, data, 200)
         else:
-            meta['msg'] = "login timeout"
+            meta['msg'] = "user doesn't exist"
             return response(meta, data, 500)
     except Exception as e:
         meta['msg'] = e
@@ -178,7 +178,7 @@ def editEntry(request):
             data['status'] = "success"
             return response(meta, data, 200)
         else:
-            meta['msg'] = "login timeout"
+            meta['msg'] = "user doesn't exist"
             return response(meta, data, 500)
     except Exception as e:
         meta['msg'] = e
@@ -204,6 +204,41 @@ def getEntryId(request):
         
         meta['msg'] = "success"
         return response(meta, data, 200)
+    except Exception as e:
+        meta['msg'] = e
+        return response(meta, data, 400)
+
+
+# update an entry
+# req:
+#   method: POST
+#   params: user_id
+#           entry_id
+#           entry
+@csrf_exempt
+def updateEntry(request):
+    # response to the wechat program
+    # meta:
+    #     msg: message of response
+    # data:
+    #     status: success or fail
+    meta = {}
+    data = {}
+    try:
+        req = json.loads(request.body.decode())
+        userId = req['user_id']
+        entryId = req['entry_id']
+        if checkLoginStatus(userId):
+            userInfo = UserInfo.objects.get(user_id=userId)
+            item = req['entry']
+            Entry.objects.filter(id=entryId).update(**item)
+
+            meta['msg'] = "success"
+            data['status'] = "success"
+            return response(meta, data, 200)
+        else:
+            meta['msg'] = "user doesn't exist"
+            return response(meta, data, 500)
     except Exception as e:
         meta['msg'] = e
         return response(meta, data, 400)

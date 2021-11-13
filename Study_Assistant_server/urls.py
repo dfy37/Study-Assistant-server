@@ -33,6 +33,7 @@ urlpatterns = [
     path('entry/addentry', entry.addEntry),
     path('entry/editentry', entry.editEntry),
     path('entry/getentryid', entry.getEntryId),
+    path('entry/updateentry', entry.updateEntry),
 ]
 
 
